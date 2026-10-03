@@ -1,0 +1,134 @@
+:root {
+  color-scheme: light;
+  --ink: #302923;
+  --muted: #6b625b;
+  --accent: #ad4f25;
+  --accent-hover: #8e3e1b;
+  --accent-soft: #f6ece3;
+  --accent-line: #e5d2c3;
+  --line: #e6dfd6;
+  --paper: #fcfaf6;
+  --surface: #f5f0e8;
+  --lead: #51483f;
+  --reading-font: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); }
+a { color: var(--accent); }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+svg { flex: 0 0 auto; width: 20px; height: 20px; }
+.page { width: min(100% - 56px, 1020px); margin: 0 auto; }
+.skip-link { position: absolute; top: -80px; left: 20px; padding: 12px 18px; background: white; z-index: 10; }
+.skip-link:focus { top: 16px; }
+.hero { padding: 76px 0 44px; text-align: center; }
+h1 { max-width: 1000px; margin: 0 auto 28px; font-size: clamp(2.1rem, 4.1vw, 3.3rem); font-weight: 700; line-height: 1.16; letter-spacing: -0.035em; text-wrap: balance; }
+.project-name { color: var(--accent); }
+.authors, .affiliations { display: flex; flex-wrap: wrap; justify-content: center; list-style: none; padding: 0; }
+.authors { gap: 12px 27px; margin: 0; font-size: 18px; font-weight: 500; }
+sup { margin-left: 2px; font-size: 0.66em; line-height: 0; vertical-align: super; }
+.affiliations { gap: 10px 24px; margin: 15px 0 0; color: var(--muted); font-size: 15px; }
+.affiliations sup { margin: 0 4px 0 0; color: var(--accent); }
+.institution-logos { display: flex; align-items: center; justify-content: center; gap: 48px; max-width: 626px; margin: 26px auto 0; }
+.institution-logos a { display: flex; flex: 0 1 auto; align-items: center; justify-content: center; min-width: 0; min-height: 66px; }
+.institution-logos a:nth-child(1) { width: 180px; }
+.institution-logos a:nth-child(2) { width: 165px; }
+.institution-logos a:nth-child(3) { width: 185px; }
+.institution-logo { display: block; width: 100%; height: auto; object-fit: contain; }
+.institution-logo-chicago { max-width: 180px; transform: translateY(0.8%); }
+.institution-logo-stanford { max-width: 165px; }
+/* The Together lettering sits below the center of its taller colored symbol. */
+.institution-logo-together { max-width: 185px; transform: translateY(-10%); }
+.resources { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+.resource { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 11px 18px; border: 1px solid var(--line); border-radius: 7px; font-size: 14px; font-weight: 600; text-decoration: none; }
+.resource-primary { border-color: var(--accent); background: var(--accent); color: white; transition: background 160ms ease, transform 160ms ease; }
+.resource-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.resource-detail { font-size: 11px; font-weight: 500; opacity: 0.8; }
+.resource-primary .resource-detail { padding-left: 9px; border-left: 1px solid #ffffff50; }
+.resource-pending { background: var(--surface); color: var(--muted); }
+.resource-pending .resource-detail { padding-left: 8px; border-left: 1px solid var(--line); }
+.overview { max-width: 810px; margin: 0 auto; padding: 32px 0 36px; text-align: center; border-top: 1px solid var(--line); }
+.eyebrow { margin: 0 0 10px; color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
+h2 { margin: 0; font-size: 30px; font-weight: 650; line-height: 1.25; letter-spacing: -0.025em; }
+.lead, .overview-detail, .project-figure figcaption, .steps p, .online-note p { font-family: var(--reading-font); }
+.lead { margin: 19px 0 0; font-size: 21px; line-height: 1.65; color: var(--lead); text-wrap: pretty; }
+.lead strong { color: var(--ink); font-weight: 600; }
+.overview-detail { max-width: 765px; margin: 15px auto 0; font-size: 18px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+.project-figure { max-width: 1000px; margin: 0 auto; scroll-margin-top: 24px; }
+.figure-image { display: block; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: white; }
+.figure-image img { display: block; width: 100%; height: auto; }
+.project-figure figcaption { max-width: 770px; margin: 16px auto 0; color: var(--muted); font-size: 16px; line-height: 1.65; text-align: center; text-wrap: pretty; }
+.method { padding: 52px 0 50px; }
+.section-heading { text-align: center; }
+.section-heading h2 { font-size: 27px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin: 29px 0 0; padding: 0; list-style: none; }
+.steps li { position: relative; padding: 0 4px; }
+.steps li + li::before { position: absolute; left: -27px; top: 10px; content: "→"; color: #b79780; font-size: 19px; }
+.step-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid var(--accent-line); border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 650; }
+h3 { margin: 13px 0 9px; font-size: 16px; line-height: 1.4; font-weight: 650; }
+.steps p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--muted); }
+.online-note { display: flex; align-items: flex-start; gap: 16px; margin-top: 30px; padding: 22px 26px; border-left: 3px solid var(--accent); border-radius: 0 7px 7px 0; background: var(--accent-soft); }
+.online-note svg { margin-top: 2px; color: var(--accent); }
+.online-note h3 { margin: 0 0 6px; font-size: 15px; }
+.online-note p { max-width: 860px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
+.citation { padding: 32px 0 34px; border-top: 1px solid var(--line); }
+.citation h2 { margin-bottom: 22px; font-size: 27px; }
+.citation-box { overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.citation-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.copy-citation { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid var(--accent-line); border-radius: 5px; background: var(--paper); color: var(--accent); font: inherit; font-weight: 500; cursor: pointer; }
+.copy-citation:hover { background: var(--accent-soft); }
+.copy-citation svg { width: 15px; height: 15px; }
+.citation pre { margin: 0; padding: 20px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.citation code { color: var(--ink); font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 13px; line-height: 1.85; }
+.copy-status { min-height: 18px; margin: 9px 0 0; color: var(--muted); font-size: 12px; }
+.footer { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 24px 0 34px; border-top: 1px solid var(--line); font-size: 12px; }
+.footer-name { color: var(--accent); font-size: 14px; font-weight: 750; letter-spacing: 0.02em; }
+.footer p { margin: 0; color: var(--muted); }
+
+@media (max-width: 700px) {
+  .page { width: min(100% - 36px, 1020px); }
+  .hero { padding: 46px 0 32px; }
+  h1 { max-width: 570px; font-size: clamp(2rem, 6.2vw, 2.6rem); margin-bottom: 24px; }
+  .authors { gap: 11px 20px; font-size: 16px; }
+  .affiliations { gap: 10px 16px; font-size: 13px; line-height: 1.6; }
+  .institution-logos { gap: 22px; margin-top: 22px; }
+  .institution-logos a { min-height: 55px; }
+  .overview { padding: 28px 0; }
+  h2 { font-size: 27px; }
+  .lead { font-size: 19px; line-height: 1.65; }
+  .overview-detail { font-size: 17px; }
+  .figure-image { padding: 10px; }
+  .project-figure figcaption { font-size: 15px; padding: 0 5px; }
+  .method { padding: 40px 0 36px; }
+  .steps { grid-template-columns: 1fr; gap: 24px; max-width: 480px; margin: 26px auto 0; }
+  .steps li { padding-left: 49px; }
+  .step-number { position: absolute; left: 0; top: 1px; }
+  .steps h3 { margin: 0 0 6px; }
+  .steps li + li::before { display: none; }
+  .online-note { padding: 20px 18px; gap: 12px; }
+  .footer { justify-content: center; gap: 10px; text-align: center; }
+  .footer p { flex-basis: 100%; }
+}
+
+@media (max-width: 380px) {
+  .page { width: calc(100% - 28px); }
+  .resource { padding: 11px 13px; gap: 7px; }
+  .resource-detail { font-size: 10px; }
+}
+
+@media (max-width: 480px) {
+  .institution-logos { gap: 14px; }
+  .institution-logos a { min-height: 43px; }
+  .resources { margin-top: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .resource-primary { transition: none; }
+}

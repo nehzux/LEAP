@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="LEAP trains a tiny model to propose actions for LLM agents, delivering up to 1.63× end-to-end speedup with a 0.6B drafter.">
+    <meta name="theme-color" content="#ad4f25">
+    <title>LEAP: Learning Efficient Action Proposals for LLM Agents</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="citation.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#overview">Skip to project overview</a>
+    <main class="page">
+      <header class="hero">
+        <h1><span class="project-name">LEAP:</span> Learning Efficient Action Proposals for LLM Agents</h1>
+        <ul class="authors" aria-label="Authors">
+          <li>Zhen Xu<sup>1</sup></li>
+          <li>Qizheng Zhang<sup>2</sup></li>
+          <li>Gerry Wan<sup>2</sup></li>
+          <li>Shang Zhu<sup>3</sup></li>
+          <li>Ce Zhang<sup>1</sup></li>
+        </ul>
+        <ul class="affiliations" aria-label="Affiliations">
+          <li><sup>1</sup>University of Chicago</li>
+          <li><sup>2</sup>Stanford University</li>
+          <li><sup>3</sup>Together AI</li>
+        </ul>
+        <div class="institution-logos" aria-label="Affiliated institutions">
+          <a href="https://www.uchicago.edu/" target="_blank" rel="noopener" aria-label="University of Chicago, opens in a new tab">
+            <img class="institution-logo institution-logo-chicago" src="assets/logos/uchicago-wordmark.svg" width="608" height="152" alt="University of Chicago">
+          </a>
+          <a href="https://www.stanford.edu/" target="_blank" rel="noopener" aria-label="Stanford University, opens in a new tab">
+            <img class="institution-logo institution-logo-stanford" src="assets/logos/stanford.png" width="426" height="91" alt="Stanford">
+          </a>
+          <a href="https://www.together.ai/" target="_blank" rel="noopener" aria-label="Together AI, opens in a new tab">
+            <img class="institution-logo institution-logo-together" src="assets/logos/together.svg" width="1147" height="241" alt="Together AI">
+          </a>
+        </div>
+        <nav class="resources" aria-label="Project resources">
+          <a class="resource resource-primary" href="https://arxiv.org/abs/2610.02670" target="_blank" rel="noopener" aria-label="Read the LEAP paper on arXiv, opens in a new tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
+            Paper <span class="resource-detail">arXiv</span>
+          </a>
+          <!-- Replace this span with an anchor when the research code URL is available. -->
+          <span class="resource resource-pending" aria-label="Code, coming soon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>
+            Code <span class="resource-detail">Coming soon</span>
+          </span>
+        </nav>
+      </header>
+
+      <section class="overview" id="overview" aria-labelledby="overview-title">
+        <p class="eyebrow">The idea</p>
+        <h2 id="overview-title">A tiny draft. A faster agent.</h2>
+        <p class="lead">LLM agents spend much of their time waiting for the next decision. <strong>LEAP teaches a small model to anticipate those decisions</strong>, so a larger target model can verify several proposed action contexts concurrently and advance through a task faster.</p>
+        <p class="overview-detail">The draft learns directly from the target's own actions, without reproducing its reasoning. The target stays frozen and verifies every committed action. A latency framework explains when the time saved outweighs the cost of drafting, verification, and tools.</p>
+      </section>
+
+      <figure class="project-figure" id="figure">
+        <a class="figure-image" href="assets/leap-overview.png" target="_blank" rel="noopener" aria-label="View the LEAP overview figure at full resolution, opens in a new tab">
+          <img src="assets/leap-overview.png" width="3200" height="1426" alt="LEAP overview. Target traces train a small action drafter. The drafter proposes actions, the target verifies their contexts concurrently, and verified actions are committed. Committed actions can also provide online training data.">
+        </a>
+        <figcaption>LEAP learns a small action drafter from the target agent, then accelerates execution through concurrent verification.</figcaption>
+      </figure>
+
+      <section class="method" aria-labelledby="method-title">
+        <div class="section-heading">
+          <p class="eyebrow">How it works</p>
+          <h2 id="method-title">Learn. Propose. Verify.</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-number" aria-hidden="true">01</span>
+            <h3>Learn the target's actions</h3>
+            <p>Train a lightweight LoRA adapter on context–action pairs collected from the target agent.</p>
+          </li>
+          <li>
+            <span class="step-number" aria-hidden="true">02</span>
+            <h3>Propose the next steps</h3>
+            <p>The small draft predicts a short sequence of actions without generating reasoning text.</p>
+          </li>
+          <li>
+            <span class="step-number" aria-hidden="true">03</span>
+            <h3>Verify and move forward</h3>
+            <p>The target verifies contexts concurrently. Commit the matching prefix and the target's next action, unless the task has ended.</p>
+          </li>
+        </ol>
+        <aside class="online-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7a9 9 0 0 0-15-2L2 8m0-5v5h5m-3 9a9 9 0 0 0 15 2l3-3m0 5v-5h-5"/></svg>
+          <div><h3>Keep learning as the agent runs.</h3><p>Committed actions also supply new training data. LEAP can learn online without a separate trace-collection pass, reaching performance comparable to offline training in our experiments.</p></div>
+        </aside>
+      </section>
+      <section class="citation" id="citation" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <div class="citation-box">
+          <div class="citation-toolbar">
+            <span>BibTeX</span>
+            <button class="copy-citation" type="button" aria-label="Copy BibTeX citation">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg>
+              <span data-copy-label>Copy BibTeX</span>
+            </button>
+          </div>
+          <pre><code id="bibtex">@article{xu2026leap,
+  title   = {{LEAP}: Learning Efficient Action Proposals for {LLM} Agents},
+  author  = {Xu, Zhen and Zhang, Qizheng and Wan, Gerry and
+             Zhu, Shang and Zhang, Ce},
+  journal = {arXiv preprint arXiv:2610.02670},
+  year    = {2026}
+}</code></pre>
+        </div>
+        <p class="copy-status" role="status" aria-live="polite"></p>
+      </section>
+      <footer class="footer">
+        <span class="footer-name">LEAP</span>
+        <p>Learning Efficient Action Proposals for LLM Agents</p>
+      </footer>
+    </main>
+  </body>
+</html>
